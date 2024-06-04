@@ -7,10 +7,13 @@ public class NumeroAleatorio : MonoBehaviour
 {
   public TextMeshProUGUI textoResultado;
 
+   public int numeroAleatorio;
+
+
     public void GenerarNumeroAleatorio()
     {
         // Genera un número aleatorio entre 1 y 20
-        int numeroAleatorio = Random.Range(1, 21);
+       numeroAleatorio = Random.Range(0, 20);
 
         // Muestra el número aleatorio en el TextMeshPro
         textoResultado.text = "Número: " + numeroAleatorio;

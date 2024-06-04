@@ -13,6 +13,8 @@ public float speed = 6.0f;
     private CharacterController controller;
     private Animator animator;
 
+    public float valorPersonaje = 1.0f;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
