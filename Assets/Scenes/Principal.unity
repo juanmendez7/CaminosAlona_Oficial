@@ -1346,17 +1346,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f18bddad532c08f4d9fa27293a4c7d15,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.5264854
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f18bddad532c08f4d9fa27293a4c7d15,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.5264854
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f18bddad532c08f4d9fa27293a4c7d15,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.5264854
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f18bddad532c08f4d9fa27293a4c7d15,
         type: 3}
@@ -13259,8 +13259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e2082fd19be06409586b0d984f3026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  runSpeed: 20
+  walkSpeed: 8
+  runSpeed: 18
   mouseSensitivity: 100
   maxEnergy: 10
   energyRegenRate: 1
