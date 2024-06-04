@@ -4,73 +4,83 @@ using UnityEngine;
 
 public class MovimientoPersonaje : MonoBehaviour
 {
-public float speed = 6.0f;
-    public float jumpSpeed = 8.0f;
-    public float gravity = 20.0f;
-    public float groundCheckDistance = 0.1f; // Distancia del raycast para comprobar el suelo
+    public float walkSpeed = 5f; // Velocidad al caminar
+    public float runSpeed = 10f; // Velocidad al correr
+    public float mouseSensitivity = 100f; // Sensibilidad del mouse
 
-    private Vector3 moveDirection = Vector3.zero;
-    private CharacterController controller;
-    private Animator animator;
+    public float maxEnergy = 10f; // Energía máxima para correr
+    public float energyRegenRate = 1f; // Velocidad de regeneración de energía por segundo
+
+    public List<string> collisionTags; // Lista de etiquetas para las colisiones
+
+    private Rigidbody rb;
+    private float rotationY = 0f;
+    private float currentEnergy;
+    private bool isRunning;
+    private bool isCollidingWithSpecificTag;
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        currentEnergy = maxEnergy; // Iniciar con energía completa
+        Cursor.lockState = CursorLockMode.Locked; // Bloquear el cursor en el centro de la pantalla
     }
 
     void Update()
     {
-        if (controller.isGrounded)
+        // Obtener la entrada del jugador para el movimiento
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        // Calcular el movimiento
+        Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
+
+        // Verificar si el jugador está corriendo, tiene energía y no está colisionando con un objeto de la lista de etiquetas
+        if (Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && !isCollidingWithSpecificTag)
         {
-            // Recoger entradas del usuario
-            float moveX = Input.GetAxis("Horizontal");
-            float moveZ = Input.GetAxis("Vertical");
-
-            // Crear el vector de movimiento basado en las entradas del usuario
-            moveDirection = new Vector3(moveX, 0.0f, moveZ);
-            moveDirection = transform.TransformDirection(moveDirection);
-            moveDirection *= speed;
-
-            // Iniciar animaciones de caminar y estar en reposo
-            if (moveDirection != Vector3.zero)
-            {
-                animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-            }
-
-            // Saltar solo si el personaje está sobre un objeto con el tag "Piso"
-            if (Input.GetButton("Jump") && IsGrounded())
-            {
-                moveDirection.y = jumpSpeed;
-                animator.SetTrigger("Jump");
-            }
+            isRunning = true;
+            currentEnergy -= Time.deltaTime;
+            movement *= runSpeed;
+        }
+        else
+        {
+            isRunning = false;
+            movement *= walkSpeed;
         }
 
-        // Aplicar gravedad
-        moveDirection.y -= gravity * Time.deltaTime;
+        // Regenerar energía cuando no se está corriendo
+        if (!isRunning && currentEnergy < maxEnergy)
+        {
+            currentEnergy += energyRegenRate * Time.deltaTime;
+        }
 
-        // Mover el controlador de personajes
-        controller.Move(moveDirection * Time.deltaTime);
+        // Asegurarse de que la energía no exceda el máximo
+        currentEnergy = Mathf.Clamp(currentEnergy, 0, maxEnergy);
+
+        // Aplicar el movimiento
+        rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+        // Obtener la entrada del ratón para la rotación
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
+        // Aplicar la rotación alrededor del eje Y
+        rotationY += mouseX;
+        Quaternion rotation = Quaternion.Euler(0f, rotationY, 0f);
+        transform.rotation = rotation;
     }
 
-   bool IsGrounded()
+    void OnCollisionEnter(Collision collision)
     {
-        // Realizar un raycast hacia abajo para comprobar si el personaje está tocando un objeto con el tag "Piso"
-        RaycastHit hit;
-        Vector3 rayOrigin = transform.position + Vector3.down * controller.height / 2;
-        Debug.DrawRay(rayOrigin, Vector3.down * groundCheckDistance, Color.red); // Dibujar el raycast en la escena
-
-        if (Physics.Raycast(rayOrigin, Vector3.down, out hit, groundCheckDistance))
+        if (collisionTags.Contains(collision.gameObject.tag))
         {
-            if (hit.collider.CompareTag("Piso"))
-            {
-                return true;
-            }
+            isCollidingWithSpecificTag = true;
         }
-        return false;
+    }
+    void OnCollisionExit(Collision collision)
+    {
+        if (collisionTags.Contains(collision.gameObject.tag))
+        {
+            isCollidingWithSpecificTag = false;
+        }
     }
 }
