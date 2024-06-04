@@ -18,6 +18,7 @@ public class Dado : MonoBehaviour
     void Start()
     {
         NumeroDado(); 
+
     }
 
 
@@ -44,6 +45,6 @@ public class Dado : MonoBehaviour
         float fuerzaInicial = Random.Range(1,6);
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().AddForce(new Vector3(0,fuerzaInicial*100,0));
-        GetComponent<Rigidbody>().rotation = Random.rotation;
+        transform.rotation = Random.rotation;
     }
 }

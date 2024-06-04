@@ -7,8 +7,14 @@ public class DeteccionPersonaje : MonoBehaviour
 {
 
        public GameObject panel;
+       public GameObject dadoF;
 
-       private bool isPaused = false;
+     
+
+
+
+        private bool isPaused = false;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,7 +22,6 @@ public class DeteccionPersonaje : MonoBehaviour
         {
             panel.SetActive(true);
             isPaused = true;
-            Time.timeScale = 0f; // Pausa el juego
         }
     }
 }
