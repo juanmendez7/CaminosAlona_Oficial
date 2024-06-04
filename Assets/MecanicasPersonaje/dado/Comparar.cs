@@ -29,12 +29,12 @@ public class Comparar : MonoBehaviour
         // Comparar los dos números y realizar la lógica deseada
         if (numeroAleatorio < numeroDelDado)
         {
-            textoResultado.text = "El número aleatorio es menor que el número del dado.";
+            textoResultado.text = "El número del enemigo menor que el número del jugador.";
             personaje.valorPersonaje =+ 1f;
         }
         else if (numeroAleatorio > numeroDelDado)
         {
-            textoResultado.text = "El número aleatorio es mayor que el número del dado.";
+            textoResultado.text = "El número del enemigo es mayor que el número del personaje.";
             enemigo.valorEnemigo += 1.0f;
         }
         else
