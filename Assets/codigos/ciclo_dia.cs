@@ -18,7 +18,7 @@ public class ciclo_dia : MonoBehaviour
         solx = 15 * hora;
         sol.localEulerAngles = new Vector3(solx, 0, 0);
 
-        if (hora < 6 || hora > 18)
+        if (hora < 6.5 || hora > 18.5)
         {
             sol.GetComponent<Light>().intensity = 0;
         }
@@ -28,7 +28,7 @@ public class ciclo_dia : MonoBehaviour
         }
 
         // Activar/desactivar objetos según la hora del día
-        if (hora >= 17 || hora < 6)
+        if (hora >= 17 || hora < 6.5)
         {
             ActivarObjetosNocturnos(true);
         }

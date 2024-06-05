@@ -19,11 +19,13 @@ public class MovimientoPersonaje : MonoBehaviour
     private bool isRunning;
     private bool isCollidingWithSpecificTag;
     private bool cursorLocked;
+    public Animator animator;
 
     public float valorPersonaje = 1.0f;
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentEnergy = maxEnergy; // Iniciar con energía completa
         //LockCursor();
@@ -51,6 +53,23 @@ public class MovimientoPersonaje : MonoBehaviour
         // Obtener la entrada del jugador para el movimiento
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+
+        if(moveVertical == 0 || moveVertical == 0)
+        {
+            animator.SetBool("camina", false);
+            animator.SetBool("corre", false);
+        }
+
+        if((moveHorizontal != 0 || moveVertical != 0) && !isRunning)
+        {
+            animator.SetBool("corre", false);
+            animator.SetBool("camina", true);
+        }
+        if ((moveHorizontal != 0 || moveVertical != 0) && isRunning)
+        {
+            animator.SetBool("corre", true);
+            animator.SetBool("camina", false);
+        }
 
         // Calcular el movimiento
         Vector3 movement = transform.right * moveHorizontal + transform.forward * moveVertical;
