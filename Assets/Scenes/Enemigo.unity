@@ -287,6 +287,8 @@ MonoBehaviour:
   grado: 0
   target: {fileID: 1228329261}
   atacando: 0
+  walkSpeed: 6
+  runSpeed: 15
 --- !u!65 &446645578
 BoxCollider:
   m_ObjectHideFlags: 0
