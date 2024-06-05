@@ -16,6 +16,8 @@ public class PersonajeCargado : MonoBehaviour
     public GameObject altoHombrePer;
     public GameObject altoWomanPer;
 
+    public GameObject[] camaras;
+
     public bool samurai;
     public bool baseHombre;
     public bool baseWoman;
@@ -44,6 +46,7 @@ public class PersonajeCargado : MonoBehaviour
             Destroy(baseWomanPerPanel);
             Destroy(altoHombrePerPanel);
             Destroy(altoWomanPerPanel);
+
         }
 
         if (baseHombre == true)
@@ -107,5 +110,70 @@ public class PersonajeCargado : MonoBehaviour
 
     }
 
+    public void camarafue()
+    {
+        if (samurai == true)
+        {
+            camaras[3].SetActive(true);
+            for (int i = 0; i < camaras.Length; i++)
+            {
+                if (i != 3 && camaras[i] != null)
+                {
+                    Destroy(camaras[i]);
+                }
+            }
+        }
+
+        if (baseHombre == true)
+        {
+            camaras[4].SetActive(true);
+            for (int i = 0; i < camaras.Length; i++)
+            {
+                if (i != 4 && camaras[i] != null)
+                {
+                    Destroy(camaras[i]);
+                }
+            }
+
+        }
+
+        if (baseWoman == true)
+        {
+            camaras[0].SetActive(true);
+            for (int i = 0; i < camaras.Length; i++)
+            {
+                if (i != 0 && camaras[i] != null)
+                {
+                    Destroy(camaras[i]);
+                }
+            }
+        }
+
+        if (altoHombre == true)
+        {
+            camaras[1].SetActive(true);
+            for (int i = 0; i < camaras.Length; i++)
+            {
+                if (i != 1 && camaras[i] != null)
+                {
+                    Destroy(camaras[i]);
+                }
+            }
+
+        }
+
+        if (altoWoman == true)
+        {
+            camaras[2].SetActive(true);
+            for (int i = 0; i < camaras.Length; i++)
+            {
+                if (i != 2 && camaras[i] != null)
+                {
+                    Destroy(camaras[i]);
+                }
+            }
+
+        }
+    }
 
 }

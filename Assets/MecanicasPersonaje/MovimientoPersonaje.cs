@@ -18,6 +18,7 @@ public class MovimientoPersonaje : MonoBehaviour
     private float currentEnergy;
     private bool isRunning;
     private bool isCollidingWithSpecificTag;
+    private bool cursorLocked;
 
     public float valorPersonaje = 1.0f;
 
@@ -25,10 +26,27 @@ public class MovimientoPersonaje : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         currentEnergy = maxEnergy; // Iniciar con energía completa
-        Cursor.lockState = CursorLockMode.Locked; // Bloquear el cursor en el centro de la pantalla
+        //LockCursor();
     }
 
     void Update()
+    {
+        HandleMovement();
+        HandleMouseLook();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (cursorLocked)
+            {
+                UnlockCursor();
+            }
+            else
+            {
+                LockCursor();
+            }
+        }
+    }
+
+    private void HandleMovement()
     {
         // Obtener la entrada del jugador para el movimiento
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -61,14 +79,34 @@ public class MovimientoPersonaje : MonoBehaviour
 
         // Aplicar el movimiento
         rb.MovePosition(transform.position + movement * Time.deltaTime);
+    }
 
-        // Obtener la entrada del ratón para la rotación
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+    private void HandleMouseLook()
+    {
+        if (cursorLocked)
+        {
+            // Obtener la entrada del ratón para la rotación
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
-        // Aplicar la rotación alrededor del eje Y
-        rotationY += mouseX;
-        Quaternion rotation = Quaternion.Euler(0f, rotationY, 0f);
-        transform.rotation = rotation;
+            // Aplicar la rotación alrededor del eje Y
+            rotationY += mouseX;
+            Quaternion rotation = Quaternion.Euler(0f, rotationY, 0f);
+            transform.rotation = rotation;
+        }
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cursorLocked = true;
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cursorLocked = false;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -78,6 +116,7 @@ public class MovimientoPersonaje : MonoBehaviour
             isCollidingWithSpecificTag = true;
         }
     }
+
     void OnCollisionExit(Collision collision)
     {
         if (collisionTags.Contains(collision.gameObject.tag))
