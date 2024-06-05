@@ -10,10 +10,13 @@ public class ciclo_dia : MonoBehaviour
 
     private float solx;
 
+    // Lista de objetos a activar/desactivar
+    public List<GameObject> objetosNocturnos;
+
     void rotacionSol()
     {
         solx = 15 * hora;
-        sol.localEulerAngles = new Vector3 (solx, 0, 0);
+        sol.localEulerAngles = new Vector3(solx, 0, 0);
 
         if (hora < 6 || hora > 18)
         {
@@ -21,13 +24,32 @@ public class ciclo_dia : MonoBehaviour
         }
         else
         {
-            sol.GetComponent <Light>().intensity = 1;
+            sol.GetComponent<Light>().intensity = 1;
+        }
+
+        // Activar/desactivar objetos según la hora del día
+        if (hora >= 17 || hora < 6)
+        {
+            ActivarObjetosNocturnos(true);
+        }
+        else
+        {
+            ActivarObjetosNocturnos(false);
         }
     }
+
+    void ActivarObjetosNocturnos(bool estado)
+    {
+        foreach (GameObject obj in objetosNocturnos)
+        {
+            obj.SetActive(estado);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
