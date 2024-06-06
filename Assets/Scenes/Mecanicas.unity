@@ -2346,6 +2346,8 @@ MonoBehaviour:
   - {fileID: 1613140501}
   - {fileID: 586175357}
   NumeroActual: 0
+  personaje: {fileID: 833705421}
+  distanciaAlPersonaje: 50
 --- !u!1 &295538262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,6 +4295,12 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &833705421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 8e22b54577fe9114fa751f0e1f0d94a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1307812600}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &918763699
 GameObject:
   m_ObjectHideFlags: 0
@@ -5742,6 +5750,7 @@ MonoBehaviour:
   maxEnergy: 10
   energyRegenRate: 1
   collisionTags: []
+  animator: {fileID: 0}
   valorPersonaje: 1
 --- !u!114 &1307812609
 MonoBehaviour:
@@ -5755,9 +5764,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0010893c8f3d0842975dbc9bddc196a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dado: {fileID: 272754564}
-  textoPersonaje: {fileID: 1648844902}
-  numeroPersonaje: 0
 --- !u!54 &1307812610
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6809,6 +6815,8 @@ MonoBehaviour:
   - {fileID: 1160781261}
   - {fileID: 1244300662}
   NumeroActual: 0
+  personaje: {fileID: 0}
+  distanciaAlPersonaje: 2
 --- !u!1 &1613140498
 GameObject:
   m_ObjectHideFlags: 0

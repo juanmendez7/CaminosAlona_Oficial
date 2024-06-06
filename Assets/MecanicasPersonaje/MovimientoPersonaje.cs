@@ -34,18 +34,18 @@ public class MovimientoPersonaje : MonoBehaviour
     void Update()
     {
         HandleMovement();
-        HandleMouseLook();
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (cursorLocked)
-            {
-                UnlockCursor();
-            }
-            else
-            {
-                LockCursor();
-            }
-        }
+        //HandleMouseLook();
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    if (cursorLocked)
+        //    {
+        //        UnlockCursor();
+        //    }
+        //    else
+        //    {
+        //        LockCursor();
+        //    }
+        //}
     }
 
     private void HandleMovement()

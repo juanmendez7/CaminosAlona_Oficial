@@ -13,6 +13,8 @@ public class Dado : MonoBehaviour
     public int NumeroActual;
 
 
+
+
     public
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,8 @@ public class Dado : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
         texto.text = "Numero: " + NumeroActual;
 
     }
@@ -46,5 +50,6 @@ public class Dado : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponent<Rigidbody>().AddForce(new Vector3(0,fuerzaInicial*100,0));
         transform.rotation = Random.rotation;
+
     }
 }
