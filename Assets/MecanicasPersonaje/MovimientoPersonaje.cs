@@ -18,7 +18,6 @@ public class MovimientoPersonaje : MonoBehaviour
     private float currentEnergy;
     private bool isRunning;
     private bool isCollidingWithSpecificTag;
-    private bool cursorLocked;
     public Animator animator;
 
     public float valorPersonaje = 1.0f;
@@ -28,24 +27,12 @@ public class MovimientoPersonaje : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentEnergy = maxEnergy; // Iniciar con energía completa
-        //LockCursor();
     }
 
     void Update()
     {
         HandleMovement();
-        //HandleMouseLook();
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    if (cursorLocked)
-        //    {
-        //        UnlockCursor();
-        //    }
-        //    else
-        //    {
-        //        LockCursor();
-        //    }
-        //}
+        HandleMouseLook();
     }
 
     private void HandleMovement()
@@ -54,13 +41,13 @@ public class MovimientoPersonaje : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        if(moveVertical == 0 || moveVertical == 0)
+        if (moveVertical == 0 && moveHorizontal == 0)
         {
             animator.SetBool("camina", false);
             animator.SetBool("corre", false);
         }
 
-        if((moveHorizontal != 0 || moveVertical != 0) && !isRunning)
+        if ((moveHorizontal != 0 || moveVertical != 0) && !isRunning)
         {
             animator.SetBool("corre", false);
             animator.SetBool("camina", true);
@@ -102,30 +89,13 @@ public class MovimientoPersonaje : MonoBehaviour
 
     private void HandleMouseLook()
     {
-        if (cursorLocked)
-        {
-            // Obtener la entrada del ratón para la rotación
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        // Obtener la entrada del ratón para la rotación
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
-            // Aplicar la rotación alrededor del eje Y
-            rotationY += mouseX;
-            Quaternion rotation = Quaternion.Euler(0f, rotationY, 0f);
-            transform.rotation = rotation;
-        }
-    }
-
-    private void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        cursorLocked = true;
-    }
-
-    private void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        cursorLocked = false;
+        // Aplicar la rotación alrededor del eje Y
+        rotationY += mouseX;
+        Quaternion rotation = Quaternion.Euler(0f, rotationY, 0f);
+        transform.rotation = rotation;
     }
 
     void OnCollisionEnter(Collision collision)

@@ -20,7 +20,7 @@ public class ciclo_dia : MonoBehaviour
 
         if (hora < 6.5 || hora > 18.5)
         {
-            sol.GetComponent<Light>().intensity = 0;
+            sol.GetComponent<Light>().intensity = 0.5f;
         }
         else
         {
